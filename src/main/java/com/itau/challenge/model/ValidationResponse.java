@@ -12,10 +12,10 @@ public class ValidationResponse {
     private String errorCode;
 
     public static ValidationResponse success() {
-        return new ValidationResponse(true, "Sucesso");
+        return new ValidationResponse(true, null);
     }
 
-    public static ValidationResponse error(String errorCode) {
-        return new ValidationResponse(false, errorCode);
+    public static ValidationResponse error(ErrorCode errorCode) {
+        return new ValidationResponse(false, errorCode.name());
     }
 }

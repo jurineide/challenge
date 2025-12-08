@@ -1,61 +1,47 @@
 package com.itau.challenge.validator;
 
+import com.itau.challenge.exception.InvalidJwtException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-import java.util.HashMap;
+import tools.jackson.databind.ObjectMapper;
+import java.util.Base64;
 import java.util.Map;
 
 @Slf4j
 @Component
-public class JwtStructureValidator { @ExceptionHandler(MethodArgumentNotValidException.class)
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public ResponseEntity<Map<String, Object>> handleValidationExceptions(
-        MethodArgumentNotValidException ex) {
+public class JwtStructureValidator {
 
-    log.warn("Validation error: {}", ex.getMessage());
+    private final ObjectMapper objectMapper;
 
-    Map<String, Object> errors = new HashMap<>();
-    ex.getBindingResult().getFieldErrors().forEach(error ->
-            errors.put(error.getField(), error.getDefaultMessage()));
-
-    Map<String, Object> response = new HashMap<>();
-    response.put("error", "Validation failed");
-    response.put("details", errors);
-
-    return ResponseEntity.badRequest().body(response);
-}
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Map<String, Object>> handleIllegalArgumentException(
-            IllegalArgumentException ex) {
-
-        log.warn("Illegal argument: {}", ex.getMessage());
-
-        Map<String, Object> response = new HashMap<>();
-        response.put("error", "Invalid request");
-        response.put("message", ex.getMessage());
-
-        return ResponseEntity.badRequest().body(response);
+    public JwtStructureValidator() {
+        this.objectMapper = new ObjectMapper();
     }
 
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<Map<String, Object>> handleGenericException(Exception ex) {
 
-        log.error("Unexpected error occurred", ex);
+    public Map<String, Object> validateAndParse(String jwtToken) {
+        try {
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("error", "Internal server error");
-        response.put("message", "An unexpected error occurred");
+            String[] parts = jwtToken.split("\\.");
+            if (parts.length != 3) {
+                throw new InvalidJwtException("JWT must have 3 parts separated by dots");
+            }
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+
+            String payload = parts[1];
+            byte[] decodedBytes = Base64.getUrlDecoder().decode(payload);
+            String decodedPayload = new String(decodedBytes);
+
+
+            @SuppressWarnings("unchecked")
+            Map<String, Object> claims = objectMapper.readValue(decodedPayload, Map.class);
+
+            return claims;
+
+        } catch (IllegalArgumentException e) {
+            throw new InvalidJwtException("Invalid JWT structure: " + e.getMessage(), e);
+        } catch (Exception e) {
+            throw new InvalidJwtException("Invalid JWT structure: " + e.getMessage(), e);
+        }
     }
 }
 

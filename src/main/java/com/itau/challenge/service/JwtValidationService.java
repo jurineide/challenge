@@ -4,7 +4,6 @@ import com.itau.challenge.model.ValidationResponse;
 import com.itau.challenge.exception.InvalidJwtException;
 import com.itau.challenge.exception.ValidationException;
 import com.itau.challenge.model.ErrorCode;
-import com.itau.challenge.model.ValidationResponse;
 import com.itau.challenge.validator.ClaimCountValidator;
 import com.itau.challenge.validator.ClaimValidator;
 import com.itau.challenge.validator.JwtStructureValidator;
@@ -21,17 +20,17 @@ import java.util.List;
 @Slf4j
 @Service
 public class JwtValidationService {
-    private final JwtSructureValidator jwtSructureValidator;
+    private final JwtStructureValidator jwtStructureValidator;
     private final ClaimCountValidator claimCountValidator;
     private final List<ClaimValidator> claimValidators;
     private final MeterRegistry meterRegistry;
 
     public JwtValidationService(
-            JwtSructureValidator jwtSructureValidator,
+            JwtStructureValidator jwtStructureValidator,
             ClaimCountValidator claimCountValidator,
             List<ClaimValidator> claimValidators,
             MeterRegistry meterRegistry) {
-        this.jwtSructureValidator = jwtSructureValidator;
+        this.jwtStructureValidator = jwtStructureValidator;
         this.claimCountValidator = claimCountValidator;
         this.claimValidators = claimValidators;
         this.meterRegistry = meterRegistry;
