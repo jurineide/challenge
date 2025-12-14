@@ -1,0 +1,90 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Token Challenge
+meta:
+  id: wrk_7e48fa96ca12480b928ab5355c9b40ed
+  created: 1764802240101
+  modified: 1764802240101
+  description: ""
+collection:
+  - url: http://localhost:8080/api/v1/jwt/validate?jwt=eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiRXh0ZXJuYWwiLCJTZWVkIjoiODgwMzciLCJOYW1lIjoiTTRyaWEgT2xpdmlhIn0.6YD73XWZYQSSMDf6H0i3-kylz1-TY_Yt6h1cV2Ku-Qs
+    name: New Request
+    meta:
+      id: req_b7744cc99140427aa2d3b63f62a0c6d5
+      created: 1764802249567
+      modified: 1764931602905
+      isPrivate: false
+      description: ""
+      sortKey: -1764802249567
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/12.1.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/v1/jwt/validate
+    name: New Request
+    meta:
+      id: req_79335ff4fe4a4b229b1dfd9dfad15de9
+      created: 1764802257448
+      modified: 1764941601424
+      isPrivate: false
+      description: ""
+      sortKey: -1764802257448
+    method: GET
+    parameters:
+      - name: jwt
+        value: eyJhbGciOiJIUzI1NiJ9.eyJOYW1lIjoiVG9uaW5obyBBcmF1am8iLCJSb2xlIjoiQWRtaW4iLCJTZWVkIjoiNzg0MSJ9.GQXqeoDYEI0axTQTWyYtMZpqZNx4TtKPo6WqkqpbSCU
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+  - url: http://localhost:8080/api/v1/jwt/validate?jwt=eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiTWVtYmVyIiwiT3JnIjoiQlIiLCJTZWVkIjoiMTQ2MjciLCJOYW1lIjoiVmFsZGlyIEFyYW5oYSJ9.cmrXV_Flm5mfdpfNUVopY_I2zeJUy4EZ4i3Fea98zvY
+    name: New Request
+    meta:
+      id: req_8b1466c421044b65a361981404dd6572
+      created: 1764803599124
+      modified: 1764931630729
+      isPrivate: false
+      description: ""
+      sortKey: -1764802249517
+    method: GET
+    headers:
+      - name: User-Agent
+        value: insomnia/12.1.0
+        description: ""
+        disabled: false
+    settings:
+      renderRequestBody: true
+      encodeUrl: true
+      followRedirects: global
+      cookies:
+        send: true
+        store: true
+      rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_7037ef8247fdebe3b4d74f1a1810ac673c59f78e
+    created: 1764802240104
+    modified: 1764802240104
+environments:
+  name: Base Environment
+  meta:
+    id: env_7037ef8247fdebe3b4d74f1a1810ac673c59f78e
+    created: 1764802240102
+    modified: 1764802240102
+    isPrivate: false

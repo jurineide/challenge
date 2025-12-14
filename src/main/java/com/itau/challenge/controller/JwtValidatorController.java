@@ -20,6 +20,7 @@ public class JwtValidatorController {
         this.jwtValidationService = jwtValidationService;
 
     }
+
     @GetMapping("/validate")
     public ResponseEntity<ValidationResponse> validateJwt(
 
