@@ -7,13 +7,19 @@ on:
   pull_request:
     branches:
       - master
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: jwt-validator
+  ECS_SERVICE: jwt-validator-service-prod
+  ECS_CLUSTER: jwt-validator-cluster-prod
 
 jobs:
   build:
     name: Build and Test
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Set up JDK 21
@@ -30,10 +36,10 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Run tests
-        run: ./mvnw clean test
+        run: ./mvn clean test
 
       - name: Build application
-        run: ./mvnw clean package -DskipTests
+        run: ./mvn clean package -DskipTests
 
       - name: Upload test results
         uses: actions/upload-artifact@v3
